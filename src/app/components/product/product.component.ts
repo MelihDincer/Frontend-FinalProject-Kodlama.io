@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Product } from '../../models/product';
 import { HttpClient } from '@angular/common/http';
+import { ProductResponseModel } from '../../models/productResponseModel';
 
 @Component({
   selector: 'app-product',
@@ -46,7 +47,12 @@ export class ProductComponent implements OnInit {
   };
   */
   products:Product[] = [];
-  // productResponseModel: ProductResponseModel={};
+  apiUrl= "https://localhost:7254/api/Products/getall";
+  // productResponseModel: ProductResponseModel={
+  //   data : this.products,
+  //   message: "",
+  //   success: true
+  // };
 
   //constructor'ın amacı product component'i bellekte oluşturmaktır.newlemektir.onun instance'ını oluşturursunuz.
   //Dependency injection mekanizması burada hazır olarak gelmektedir.
@@ -54,11 +60,15 @@ export class ProductComponent implements OnInit {
 
   //ProductComponent açıldığında çalışan metot: ngOnInit()
   ngOnInit() {
-    console.log("Init çalıştı");
+    // console.log("Init çalıştı");
+    this.getProducts();
   }
 
   getProducts(){
-    this.httpClient.get("")
+    //apiUrl'e istekte bulun ve gelen datayı ProductResponseModel'e map et.
+    this.httpClient.get<ProductResponseModel>(this.apiUrl)
+    .subscribe(response=>{
+      this.products = response.data
+    })
   }
-
 }
