@@ -1,13 +1,3 @@
-<!-- 
-Welcome to {{title}}
-Hello {{user}}
-
-{{product.productName}}
-
-<ul>
-  <li *ngFor="let product of products">{{product.productId}} {{product.productName}} {{product.categoryId}} {{product.unitPrice}}</li>
-</ul> -->
-
 <div class="container">
 <app-navi></app-navi>
 <div class="row mt-4">
@@ -15,8 +5,8 @@ Hello {{user}}
     <app-category></app-category>
   </div>
   <div class="col-md-9">
-    <app-product></app-product>
+    <!-- Değişecek olarak içerik bölümü router-outlet olarak tanımlanmaktadır -->
+    <router-outlet />
   </div>
 </div>
-<router-outlet />
 </div>
