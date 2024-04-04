@@ -4,16 +4,16 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { VatAddedPipe } from '../../pipes/vat-added.pipe';
-import { FormsModule } from '@angular/forms';
 import { FilterPipe} from '../../pipes/filter-pipe.pipe';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../services/cart.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [RouterModule, CommonModule, VatAddedPipe, FormsModule, FilterPipe],
+  imports: [RouterModule, VatAddedPipe, FilterPipe, CommonModule, FormsModule],
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
@@ -25,9 +25,8 @@ export class ProductComponent implements OnInit {
 
   //constructor'ın amacı product component'i bellekte oluşturmaktır.newlemektir.onun instance'ını oluşturursunuz.
   //Dependency injection mekanizması burada hazır olarak gelmektedir.
-  //ActivatedRoute build in bir angular servisidir. Aktifleştirilmiş route(mevcut route)'u okumak için kullanılmıştır.Burada category id değerini okumak amaçlanmaktadır.
   constructor(private productService:ProductService, //HttpClient türünde bir nesne istemiş oluyoruz burada. private yazmamızın sebebi sadece bu sınıf üzerinden httpClient'a erişilsin diyedir. HttpClient ProductService'in constructorındadır.
-    private activatedRoute:ActivatedRoute, 
+    private activatedRoute:ActivatedRoute, //ActivatedRoute build in bir angular servisidir. Aktifleştirilmiş route(mevcut route)'u okumak için kullanılmıştır.Burada category id değerini okumak amaçlanmaktadır.
     private toastrService: ToastrService, 
     private cartService:CartService) { } 
 
@@ -64,7 +63,7 @@ export class ProductComponent implements OnInit {
       this.toastrService.error("Hata", "Bu ürün sepete eklenemez!")
     }
     else{
-      this.toastrService.success("Sepete eklendi", product.productName, {closeButton:true,positionClass:'toast-top-right',timeOut:3000})
+      this.toastrService.success("Sepete eklendi", product.productName)
       this.cartService.addToCart(product);
     }
   }

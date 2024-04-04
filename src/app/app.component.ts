@@ -5,11 +5,12 @@ import { NaviComponent } from './components/navi/navi.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProductComponent } from './components/product/product.component';
 import { HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root', //uygulamadaki html tagi
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule, NaviComponent, CategoryComponent, ProductComponent],
+  imports: [RouterOutlet, HttpClientModule, NaviComponent, CategoryComponent, ProductComponent, ReactiveFormsModule],
   templateUrl: './app.component.html', //bu adresin componenti sin.
   styleUrl: './app.component.css' 
 })
