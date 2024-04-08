@@ -41,13 +41,16 @@ export class ProductAddComponent implements OnInit {
 
   add(){
     if(this.productAddForm.valid){
-      let productModel = Object.assign({},this.productAddForm.value) //Bizim product model için bir obje oluşturuyor. Aynı zamanda productAddForm.value içerisindeki bütün alanları alıp o objenin içerisine atacaktır.
+      let productModel = Object.assign({},this.productAddForm.value) //Bizim product model için boş bir obje oluşturuyor. Aynı zamanda productAddForm.value içerisindeki bütün alanları alıp o objenin içerisine atacaktır.
       this.productService.add(productModel).subscribe(response=>{
-        console.log(response)
         this.toastrService.success(response.message, "Başarılı")
       },responseError=>{
-        console.log(responseError.error)
-        this.toastrService.error(responseError.error)
+        if(responseError.error.Errors.length>0){
+          console.log(responseError.error.Errors)
+          for (let i = 0; i < responseError.error.Errors.length; i++) {
+            this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama hatası")
+          }
+        }
       })
     }
     else{
